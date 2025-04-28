@@ -4,6 +4,7 @@ import { loginStart, loginSuccess, loginFailure } from '../redux/auth/authSlice'
 import { loginUser } from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography, Box, CircularProgress } from '@mui/material';
+import { jwtDecode } from 'jwt-decode';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -18,9 +19,14 @@ export default function Login() {
     dispatch(loginStart());
 
     try {
-      const data = await loginUser(email, password);
-      dispatch(loginSuccess(data.accessToken)); // guardamos el token
-      navigate('/'); // redirigir al Home
+      const response = await loginUser(email, password);
+
+      const decode = jwtDecode(response.data);
+      const user = {
+        name: decode.name,
+      }
+      dispatch(loginSuccess({ token: response.data, user })); 
+      navigate('/'); 
     } catch (err) {
       console.error(err);
       dispatch(loginFailure('Credenciales inválidas'));
