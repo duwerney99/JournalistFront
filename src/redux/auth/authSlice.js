@@ -16,9 +16,10 @@ const authSlice = createSlice({
       state.error = null;
     },
     loginSuccess(state, action) {
+      console.log("action ", action.payload)
       state.loading = false;
-      state.token = action.payload;
-      localStorage.setItem('token', action.payload);
+      state.token = action.payload.token;
+      localStorage.setItem('token', action.payload.token);
       localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
     loginFailure(state, action) {

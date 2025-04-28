@@ -20,8 +20,9 @@ export default function Login() {
 
     try {
       const response = await loginUser(email, password);
-
+      console.log("response ", response.data)
       const decode = jwtDecode(response.data);
+      console.log("decode ", decode)
       const user = {
         name: decode.name,
       }
