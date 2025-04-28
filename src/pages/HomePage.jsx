@@ -69,8 +69,8 @@ function HomePage() {
 
             const { date, entryTime, exitTime, workedHours } = resume.data;
 
-
-            setSnackbarMessage(`Hoy ${date}: Trabajaste ${workedHours.hours} horas y ${workedHours.minutes} minutos`);
+            console.log("resume ", resume)
+            setSnackbarMessage(`Hoy ${date}: Trabajaste ${workedHours}`);
             setSnackbarSeverity('success');
             setSnackbarOpen(true);
 
